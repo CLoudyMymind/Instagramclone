@@ -237,35 +237,34 @@ public class AccountService : IAccountService
     }
     public async Task<IndexViewModel> IndexPage(ClaimsPrincipal user)
     {
-        var userIdentity =  await _userManager.GetUserAsync(user);
+        var userId = (await _userManager.GetUserAsync(user))?.Id;
+        if (userId == null) return new IndexViewModel();
 
-        var followedUsers = _instagramContext.FollowersAndSubscribers
+        var followedUsers = await _instagramContext.FollowersAndSubscribers
             .Include(follow => follow.FollowingUser)
             .Include(follow => follow.FollowerUser.Posts)
             .ThenInclude(post => post.Likes)
             .Include(follow => follow.FollowerUser.Posts)
             .ThenInclude(post => post.Comments)
-            .Where(follow => follow.FollowingUser.Id == userIdentity!.Id)
-            .ToList();
+            .Where(follow => follow.FollowingUser.Id == userId)
+            .ToListAsync();
 
-        var allUser = _instagramContext.Users.ToList();
+        var allUserIds = await _instagramContext.Users.Select(u => u.Id).ToListAsync();
+        var followingUserIds = await _instagramContext.FollowersAndSubscribers
+            .Where(follow => follow.FolowingUserId == userId)
+            .Select(follow => follow.FollowerUserId)
+            .ToListAsync();
+        var usersToExclude = followingUserIds.Concat(new[] { userId });
+        var users = await _instagramContext.Users
+            .Where(u => !usersToExclude.Contains(u.Id))
+            .ToListAsync();
 
-        var followingUser = _instagramContext.FollowersAndSubscribers
-            .Where(follow => follow.FolowingUserId == userIdentity!.Id)
-            .ToList();
-
-        foreach (var followerUser in followingUser)
-        {
-            var orDefault = allUser.FirstOrDefault(user1 => user1.Id == followerUser.FollowerUserId);
-            allUser.Remove(orDefault!);
-        }
-        
-        allUser.Remove(userIdentity!);
-        IndexViewModel model = new()
+        var model = new IndexViewModel
         {
             Follows = followedUsers,
-            Users = allUser
+            Users = users
         };
         return model;
     }
+
 }
