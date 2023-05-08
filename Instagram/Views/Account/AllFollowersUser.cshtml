@@ -1,0 +1,27 @@
+@model System.Collections.Generic.List<Instagram.Models.FollowersAndSubscribers>
+
+@{
+    ViewBag.Title = "подписчики";
+    Layout = "_Layout";
+}
+@if (!@Model.Any())
+{
+    <p>вы не на кого не подписались  еще</p>
+}
+@foreach (var user in Model)
+{
+    
+    <div class="row">
+        <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img class="card-img-top" src="@user.FollowingUser.PathFile" alt="Фото пользователя">
+                    <div class="card-body">
+                        <h5 class="card-title">@user.FollowingUser.UserName</h5>
+                        <p class="card-text">@user.FollowingUser.Name</p>
+                        <a href="@Url.Action("About", new { id = user.FollowingUser.Id })" class="btn btn-primary">Посмотреть профиль</a>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+}
