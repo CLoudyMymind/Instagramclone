@@ -8,7 +8,7 @@ public class RegisterViewModel
     [DataType(DataType.Upload, ErrorMessage = "загрузите фотку")]
     [Required(ErrorMessage = "Загрузите Обложку")]
     [Display(Name = "Загрутите Обложку")]
-    [AllowedExtensions(new []{".png" , ".jpeg" , "jpg" , "webp" , "ico" , "svg"})]
+    [AllowedExtensions(new []{".png" , ".jpeg" , ".jpg" , ".webp" , ".ico" , ".svg"})]
     public IFormFile Avatar { get; set; }
     
     public string? PathFile { get; set; }
