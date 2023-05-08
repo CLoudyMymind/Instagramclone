@@ -1,0 +1,80 @@
+﻿@model Instagram.ViewModels.IndexViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<form asp-action="SearchUser" method="get" class="form-inline my-2 my-lg-0">
+    <div class="input-group">
+        <input class="form-control mr-sm-2" type="search" placeholder="по имени" name="UserName" aria-label="Поиск">
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Поиск</button>
+    </div>
+</form>
+
+<div class="posting">
+    @foreach (var followList in Model.Follows)
+    {
+        @foreach (var followPost in followList.FollowerUser.Posts)
+        {
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <img src="@followPost.Creater!.PathFile" alt="Profile photo" class="w-25 h-25 rounded-circle">
+                            <a asp-action="About" class="" asp-route-id="@followPost.Creater.Id">@followPost.Creater.UserName</a>
+                        </div>
+                        <div class="card-body">
+                            <img src="@followPost.PathFile" alt="Post photo" class="w-100 mb-3">
+                            <div class="d-flex align-items-center">
+                                <form asp-action="Like" method="post" enctype="multipart/form-data" class="mr-3" asp-antiforgery="true">
+                                    <button type="submit" class="btn btn-link text-black text-decoration-none fs-1">
+                                        <div class="d-flex align-items-center">
+                                            <span class="like-count">@followPost.Likes.Count</span>
+                                            <i class="fas fa-heart mr-2"></i>
+                                        </div>
+                                    </button>
+                                    <input type="hidden" asp-for="Post.Creater.Id" value="@followPost.Creater.Id">
+                                    <input type="hidden" asp-for="Post.Id" value="@followPost.Id">
+                                </form>
+                                <a href="#" class="ms-4 text-decoration-none d-flex align-items-center">
+                                    <span class="me-3 text-decoration-none text-black fs-3">@followPost.Comments.Count</span>
+                                    <svg aria-label="Comment" class="_8-yf5" fill="#262626" height="24" viewBox="0 0 48 48" width="24">
+                                        <path clip-rule="evenodd" d="M47.5 46.1l-2.8-11c1.8-3.3 2.8-7.1 2.8-11.1C47.5 11 37 .5 24 .5S.5 11 .5 24 11 47.5 24 47.5c4 0 7.8-1 11.1-2.8l11 2.8c.8.2 1.6-.6 1.4-1.4zm-3-22.1c0 4-1 7-2.6 10-.2.4-.3.9-.2 1.4l2.1 8.4-8.3-2.1c-.5-.1-1-.1-1.4.2-1.8 1-5.2 2.6-10 2.6-11.4 0-20.6-9.2-20.6-20.5S12.7 3.5 24 3.5 44.5 12.7 44.5 24z" fill-rule="evenodd"></path>
+                                    </svg>
+                                </a>
+
+                            </div>
+                            <div class="mb-3">
+                                <span href="#" class="font-weight-bold">@followPost.Creater.UserName</span>
+                                <span>@followPost.Decription</span>
+                            </div>
+                            <div>
+                                @foreach (var comment in followPost.Comments)
+                                {
+                                    <div class="mb-2">
+                                        <span href="#" class="font-weight-bold">@comment.User.UserName</span>
+                                        <p>
+                                            @comment.Description
+                                            <span href="#" class="text-black text-decoration-none">@followPost.CreateTime.ToString("d") </span>
+
+                                        </p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="post-footer-add-comment">
+                            <form id="comment" method="post" asp-action="AddСomment" enctype="multipart/form-data">
+                                <input placeholder="оставьте комент" class="post-footer-comment-input" asp-for="Comment">
+                                <button type="submit">Отправить</button>
+                                <input type="hidden" asp-for="Post.Id" value="@followPost.Id"/>
+                                <input type="hidden" asp-for="Post.Creater.Id" value="@followPost.Creater.Id">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
