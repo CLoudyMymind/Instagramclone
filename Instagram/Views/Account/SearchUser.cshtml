@@ -1,0 +1,37 @@
+﻿@model Instagram.ViewModels.IndexViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+<a class="align-content-center text-center btn btn-outline-success mb-5" asp-action="Index">выйти в меню</a>
+<form asp-action="SearchUser" method="get" class="form-inline my-2 my-lg-0">
+    <div class="input-group">
+        <input class="form-control mr-sm-2" type="search" placeholder="по имени" name="UserName" aria-label="Поиск">
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Поиск</button>
+    </div>
+</form>
+@if (!Model.Users.Any())
+{
+    <p>Пользователи не найдены.</p>
+
+}
+else
+{
+    <h1>Результаты поиска:</h1>
+    <div class="row">
+        @foreach (var user in Model.Users)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img class="card-img-top" src="@user.PathFile" alt="Фото пользователя">
+                    <div class="card-body">
+                        <h5 class="card-title">@user.UserName</h5>
+                        <p class="card-text">@user.Name</p>
+                        <a href="@Url.Action("About", new { id = user.Id })" class="btn btn-primary">Посмотреть профиль</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
