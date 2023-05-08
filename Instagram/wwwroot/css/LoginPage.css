@@ -1,0 +1,43 @@
+.form-control {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #dcdcdc;
+    box-shadow: none;
+    padding: 10px 15px;
+    font-size: 16px;
+}
+
+.form-control:focus {
+    border-color: #8e8e8e;
+    box-shadow: none;
+}
+
+.btn-primary {
+    background-color: #1877f2;
+    border-color: #1877f2;
+}
+
+.btn-primary:hover {
+    background-color: #166fe5;
+    border-color: #166fe5;
+}
+
+.btn-primary:focus {
+    box-shadow: none;
+}
+
+.form-check-label {
+    font-weight: normal;
+}
+
+.text-primary {
+    color: #1877f2;
+}
+
+.text-muted {
+    color: #8e8e8e;
+}
+
+.rounded-pill {
+    border-radius: 50px;
+}

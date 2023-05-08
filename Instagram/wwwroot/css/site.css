@@ -1,3 +1,7 @@
+@import url('./components/profile.css');
+@import url('./components/stories.css');
+@import url('./components/gallery.css');
+@import url('./components/contentTabs.css');
 html {
   font-size: 14px;
 }
@@ -20,3 +24,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+.Text-Custom {
+   font-family: 'Billabong', cursive;
+ }
+
+
+  
