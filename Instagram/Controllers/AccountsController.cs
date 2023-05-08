@@ -19,7 +19,6 @@ public class AccountController : Controller
     private readonly ICommentService _commentService;
     private readonly ILikeService _likeService;
     private readonly IFollowingService _followingService;
-    private readonly InstagramContext _instagramContext;
     
 
     public AccountController(
@@ -28,7 +27,7 @@ public class AccountController : Controller
         IPostService postService,  
         IFileService fileService,
         ICommentService commentService, 
-        ILikeService likeService, IFollowingService followingService, InstagramContext instagramContext)
+        ILikeService likeService, IFollowingService followingService)
     {
         _accountService = accountService;
         _userManager = userManager;
@@ -37,7 +36,7 @@ public class AccountController : Controller
         _commentService = commentService;
         _likeService = likeService;
         _followingService = followingService;
-        _instagramContext = instagramContext;
+       
     }
 
     [HttpGet]
