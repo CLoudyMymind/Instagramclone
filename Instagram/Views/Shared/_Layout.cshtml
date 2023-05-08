@@ -3,30 +3,51 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - Instagram</title>
+    <title>@ViewData["Title"] - HomeWork_58_Artyom_Sek</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/Instagram.styles.css" asp-append-version="true"/>
+    <link href="https://fonts.cdnfonts.com/css/billabong" rel="stylesheet">
+
 </head>
 <body>
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Instagram</a>
+            <a class="navbar-viewModel text-black Text-Custom fs-3 text-decoration-none" asp-area="" asp-controller="Account" asp-action="Index">Instagram</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-                </ul>
-            </div>
+         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+             <ul class="navbar-nav flex-grow-1">
+                 @if (User.Identity.IsAuthenticated)
+                 {
+                     <li class="nav-item">
+                         <p class="fst-italic fs-4 ms-5">Добро пожаловать: @User.Identity.Name</p>
+                     </li>
+                     <li class="nav-item ms-auto">
+                         <form asp-action="LogOff" asp-controller="Account" method="post" asp-antiforgery="true">
+                             <button type="submit" class="btn btn-outline-info">Выйти</button>
+                         </form>
+                     </li>
+                     <li class="nav-item ">
+                         <div class="user-icon">
+                             <a class="nav-link text-dark " asp-area="" asp-controller="Account" asp-action="About"><i class="fa-solid fa-user fa-2xl"></i></a>
+                         </div>
+                         </li>
+                 }
+                 else
+                 {
+                     <li class="nav-item ms-5">
+                         <a class="nav-link text-dark btn btn-outline-info me-2" asp-area="" asp-controller="Account" asp-action="Register" >Зарегистрироваться</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link text-dark btn btn-outline-info ms-2" asp-area="" asp-controller="Account" asp-action="Login">Войти в Айти</a>
+                     </li>
+                 }
+             </ul>
+         </div>
+
         </div>
     </nav>
 </header>
@@ -35,15 +56,16 @@
         @RenderBody()
     </main>
 </div>
-
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2023 - Instagram - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+<footer class="border-top footer text-muted fixed-bottom">
+    <div class="container ">
+        <a class="text-black fs-5 Text-Custom fs-2 text-decoration-none" asp-area="" asp-controller="Account" asp-action="Index">Instagram</a>
     </div>
 </footer>
+  <script src="https://kit.fontawesome.com/bc43f2d6e1.js" crossorigin="anonymous"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
-@await RenderSectionAsync("Scripts", required: false)
+@await RenderSectionAsync("Scripts", false)
+
 </body>
 </html>
