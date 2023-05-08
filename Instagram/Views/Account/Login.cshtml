@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Instagram.ViewModels.LoginViewModel
+    <link rel="stylesheet" href="~/css/LoginPage.css" asp-append-version="true"/>
+
+<h2 class="text-center mb-4">Вход в Instagram</h2>
+<form method="post" asp-controller="Account" asp-action="Login" asp-antiforgery="true"
+      asp-route-returnUrl="@Model.ReturnUrl">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="form-group">
+        <input type="text" class="form-control" asp-for="Name" placeholder="Номер телефона, имя пользователя или эл. адрес"/>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control" asp-for="Password" placeholder="Пароль"/>
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" asp-for="RememberMe"/>
+        <label class="form-check-label" asp-for="RememberMe">Запомнить меня</label>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Войти</button>
+    <div class="text-center mt-3">
+        <span>У вас нет аккаунта?</span>
+        <a asp-action="Register">Зарегистрируйтесь</a>
+    </div>
+</form>
