@@ -6,4 +6,42 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="MimeTypes" Version="2.4.1">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Pages\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Views\Account\Login.cshtml" />
+      <AdditionalFiles Include="Views\Account\Register.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\images\0556079e-a56a-4448-b0ea-09decd875cc8.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\184b55b7-b5f4-4010-8cf1-293b58ce67e4.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\1dad856d-639d-46d1-aad9-d01029d00381.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\202f5fb1-a4a2-4745-bb2b-2cde8232a937.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\379bca79-54c3-4cd6-8023-1a7c7ce653cf.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\3ed0c8a2-a2ca-4688-b588-77ba97b518ff.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\4f6db3fc-1700-4162-8c86-2f10ff9636e5.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\75c334fb-eef3-4ae2-babb-69956222a846.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\9d3fdc19-2a35-427f-9eea-c01f4f311fb3.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\c5bd3f10-f393-42d7-97e7-f0dc6f09b0b8.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\e1d1d82a-7412-4871-98aa-43c6d813ca11.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\ed766d39-ddbc-4fd8-a21c-91276875e1a7.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\f4260142-9bb0-4ed0-baf3-98b10285865b.jpg" />
+    </ItemGroup>
+
 </Project>
