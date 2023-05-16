@@ -1,0 +1,70 @@
+@using Microsoft.AspNetCore.Identity
+@model Instagram.ViewModels.AboutsViewModel
+@{
+    ViewBag.Title = "подробние о юзере";
+    Layout = "_Layout";
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+<div class="profile-wrap" xmlns="http://www.w3.org/1999/html">
+    <div class="profile-avatar">
+        <div class="circ-story circ-gradient"></div>
+        <img src="@Model.User.PathFile" alt="фото профиля">
+    </div>
+    <div class="profile-info">
+        <div class="profile-title mb-1rem">
+            <h2>@Model.User.UserName</h2>
+            <a class="cta btn ms-5 " type="submit" asp-action="PostsCreate" asp-controller="Posts">Создать пост</a>
+        </div>
+        <ul class="profile-numbers mb-1rem">
+            <li>
+                <a href="#">
+                    <span class="profile-posts">@Model.User.Posts.Count</span>
+                    Посты
+                </a>
+            </li>
+            <li>
+                <a asp-action="AllFollowersUser" asp-controller="Profiles" asp-route-id="@Model.User.Id">
+                    <span class="profile-followers">@Model.Followers.Count</span>
+                    подписки
+                </a>
+            </li>
+            <li>
+                <a asp-action="AllFlowingsUsers" asp-controller="Profiles" asp-route-id="@Model.User.Id">
+                    <span class="profile-following">@Model.Followings.Count</span>
+                    Подписчики
+                </a>
+            </li>
+        </ul>
+        <div class="profile-bio">
+            <h1 class="profile-name">@Model.User.Name</h1>
+            <span class="profile-desc">
+                описание: @Model.User.About
+            </span>
+            <span class="profile-desc">
+                пол: @Model.User.Male
+            </span>
+            <p>@Model.User.PhoneNumber</p>
+        </div>
+    </div>
+</div>
+<div class="gallery-pics inner-wrap">
+    <div class="pic-wrap">
+        @foreach (var post in Model.User.Posts)
+        {
+            <div class="pic">
+                <div class="opacity-overlay">
+                    <a asp-action="AboutsPostData" asp-route-id="@post.Id">
+                        <img src="@post.PathFile">
+                    </a>
+                </div>
+                <div class="icons">
+                    <i class="fa fa-heart">@post.Likes.Count ❤</i>
+                    <i class="fa fa-comment">@post.Comments.Count 🗨️</i>
+                </div>
+            </div>
+        }
+    </div>
+</div>
