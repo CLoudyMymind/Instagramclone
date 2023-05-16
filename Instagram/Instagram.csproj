@@ -20,10 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Pages\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <AdditionalFiles Include="Views\Account\Login.cshtml" />
       <AdditionalFiles Include="Views\Account\Register.cshtml" />
     </ItemGroup>
@@ -42,6 +38,11 @@
       <_ContentIncludedByDefault Remove="wwwroot\images\e1d1d82a-7412-4871-98aa-43c6d813ca11.png" />
       <_ContentIncludedByDefault Remove="wwwroot\images\ed766d39-ddbc-4fd8-a21c-91276875e1a7.jpg" />
       <_ContentIncludedByDefault Remove="wwwroot\images\f4260142-9bb0-4ed0-baf3-98b10285865b.jpg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Pages\" />
+      <Folder Include="Views\Shared\PartialViews\" />
     </ItemGroup>
 
 </Project>
