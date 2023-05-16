@@ -11,6 +11,8 @@ public interface IPostService
     public Post GetByIdPostAll(string id);
     public string GetByIdLikesByPost(InfoByPostViewModel model);
     public IQueryable<Post> GetById(string id);
-
     public List<Post> GetAll();
+    public bool Delete(ClaimsPrincipal user, string id);
+
+    public void Edit(CreatePostViewModel model, string postId);
 }
