@@ -1,0 +1,27 @@
+﻿@model Instagram.ViewModels.CreatePostViewModel
+
+@{
+    ViewBag.Title = "изменение поста";
+    Layout = "_Layout";
+}
+@if (TempData["Error"] != null)
+{
+    <p class="alert-danger">@TempData["Error"]</p>
+}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h2 class="text-center">Создание поста</h2>
+        <form method="post" class="was-validated" asp-action="EditPost" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="Decription">Введите описание</label>
+                <input asp-for="Decription" class="form-control" id="Name" required/>
+                <span asp-validation-for="@Model.Decription" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-outline-success mt-3">Создать</button>
+            <input type="hidden" asp-for="@Model.Post.Id" value="@Model.Post.Id"/>
+            <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+        </form>
+    </div>
+</div>
