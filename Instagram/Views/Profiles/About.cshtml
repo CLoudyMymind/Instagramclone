@@ -1,7 +1,7 @@
 ﻿@model Instagram.ViewModels.AboutsViewModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "подробние о юзере";
     Layout = "_Layout";
 }
 @if (TempData["Error"] != null)
@@ -16,9 +16,16 @@
     <div class="profile-info">
         <div class="profile-title mb-1rem">
             <h2>@Model.User.UserName</h2>
-            <a class="btn cta me-3" asp-action="Follow" asp-controller="Account" asp-route-id="@Model.User.Id">Подписаться</a>
-            <a class="cta btn ms-5 " type="submit" asp-action="PostsCreate">Создать пост</a>
-            <a class="cta btn " type="submit" asp-action="Edit" asp-controller="Account" asp-route-id="@Model.User.Id">Изменить Профиль</a>
+            <a class="me-3" asp-action="Follow" asp-controller="Profiles" asp-route-id="@Model.User.Id">
+                @if (Model.Followings.FirstOrDefault(f => f.FollowerUserId == Model.User.Id) is not null)
+                {
+                    <span class="btn-outline-danger btn">Отписаться</span>
+                }
+                else
+                {
+                    <span class="btn-outline-success btn">Подписаться</span>
+                }
+            </a>
         </div>
         <ul class="profile-numbers mb-1rem">
             <li>
@@ -28,15 +35,15 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a asp-action="AllFollowersUser" asp-controller="Profiles" asp-route-id="@Model.User.Id">
                     <span class="profile-followers">@Model.Followers.Count</span>
-                    Подписчики
+                    Подписки
                 </a>
             </li>
             <li>
-                <a asp-action="" asp-controller="Account" asp-route-id="@Model.User.Id">
+                <a asp-action="AllFlowingsUsers" asp-controller="Profiles" asp-route-id="@Model.User.Id">
                     <span class="profile-following">@Model.Followings.Count</span>
-                    Подписки
+                    Подписчики
                 </a>
             </li>
         </ul>
@@ -58,7 +65,7 @@
         {
             <div class="pic">
                 <div class="opacity-overlay">
-                    <a asp-action="AboutsPostData" asp-route-id="@Model.User.Id">
+                    <a asp-action="AboutsPostData" asp-route-id="@post.Id">
                         <img src="@post.PathFile">
                     </a>
                 </div>
