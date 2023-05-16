@@ -1,10 +1,8 @@
-
 using Instagram.Models;
 using Instagram.services;
 using Instagram.services.Abstractions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AppContext = Instagram.Models.InstagramContext;
 
@@ -25,7 +23,6 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
         options.Password.RequireNonAlphanumeric = false;
         options.User.RequireUniqueEmail = true; 
     })
-    // .AddErrorDescriber<RussianErrorDescriber>()
     .AddEntityFrameworkStores<InstagramContext>();
 builder.Services.ConfigureApplicationCookie(o =>
 {
@@ -33,22 +30,15 @@ builder.Services.ConfigureApplicationCookie(o =>
     o.ExpireTimeSpan = TimeSpan.FromMinutes(5);
     o.SlidingExpiration = true;
 });
-builder.Services.Configure<CookieAuthenticationOptions>(options =>
-{
-    options.Cookie.Expiration = TimeSpan.Zero;
-    options.Cookie.SameSite = SameSiteMode.Strict;
-    options.Cookie.HttpOnly = true;
-    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-});
 
-// builder.Services.AddScoped<IdentityErrorDescriber, RussianErrorDescriber>();
+
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<ILikeService, LikeService>();
 builder.Services.AddScoped<IFollowingService, FollowingService>();
-// builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.User.RequireUniqueEmail = true;
