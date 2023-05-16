@@ -18,7 +18,7 @@ public class AllowedExtensionsAttribute : ValidationAttribute
         {
             var fileExtension = Path.GetExtension(file.FileName.ToLower());
 
-            if (!_extensions.All(e => e != fileExtension))
+            if (_extensions.All(e => e != fileExtension))
             {
                 return new ValidationResult($"Недопустимые расширения файлов");
             }
