@@ -1,7 +1,7 @@
 ﻿@model Instagram.ViewModels.IndexViewModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "поиск пользователя";
     Layout = "_Layout";
 }
 <a class="align-content-center text-center btn btn-outline-success mb-5" asp-action="Index">выйти в меню</a>
@@ -28,7 +28,7 @@ else
                     <div class="card-body">
                         <h5 class="card-title">@user.UserName</h5>
                         <p class="card-text">@user.Name</p>
-                        <a href="@Url.Action("About", new { id = user.Id })" class="btn btn-primary">Посмотреть профиль</a>
+                        <a href="@Url.Action("About", "Profiles",new { id = user.Id } )" class="btn btn-primary">Посмотреть профиль</a>
                     </div>
                 </div>
             </div>
