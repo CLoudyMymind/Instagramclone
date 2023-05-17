@@ -54,7 +54,7 @@
     <div class="pic-wrap">
         @foreach (var post in Model.User.Posts)
         {
-            <div class="pic">
+            <div class="pic mt-3">
                 <div class="opacity-overlay">
                     <a asp-action="AboutsPostData" asp-route-id="@post.Id">
                         <img src="@post.PathFile">
@@ -63,6 +63,16 @@
                 <div class="icons">
                     <i class="fa fa-heart">@post.Likes.Count ❤</i>
                     <i class="fa fa-comment">@post.Comments.Count 🗨️</i>
+                </div>
+                <div class="mt-2 me-2 mb-2">
+                @if (User.Identity.IsAuthenticated != null)
+                {
+                    @if (post.Creater.Id == Model.User.Id || post.Id != null || Model.User.Id != null)
+                    {
+                        <a asp-controller="Posts" asp-action="DeletePost" asp-route-id="@post.Id" class="btn-outline-danger btn">Удалить пост</a>
+                        <a asp-controller="Posts" asp-action="EditPost" asp-route-id="@post.Id" class="btn-outline-success btn">Изменить пост</a>
+                    }
+                }
                 </div>
             </div>
         }

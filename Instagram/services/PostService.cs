@@ -116,8 +116,9 @@ public class PostService : IPostService
     {
         var post = _instagramContext.Posts.FirstOrDefault(p => p.Id == postId);
         if (post != null)
-        { 
-            _instagramContext.Update(post.Decription = model.Decription);
+        {
+            post.Decription = model.Decription;
+            _instagramContext.Update(post);
             _instagramContext.SaveChanges();
         }
     }

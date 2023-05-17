@@ -20,14 +20,6 @@
                 </div>
                 <div class="post-footer">
                     <div class="d-flex align-items-center">
-                        @if (@User.Identity.IsAuthenticated != null)
-                        {
-                            @if (@Model.Post.Creater.Id == Model.User.Id || @Model.Post.Id != null || @Model.User.Id != null)
-                            {
-                                <a asp-controller="Posts" asp-action="DeletePost" asp-route-id="@Model.Post.Id" class="btn-outline-danger btn">Удалить пост</a>
-                                <a asp-controller="Posts" asp-action="EditPost" asp-route-id="@Model.Post.Id" class="btn-outline-success btn">Изменить пост</a>
-                            }
-                        }
                         <form asp-action="Like" method="post" enctype="multipart/form-data" class="mr-3" asp-antiforgery="true" asp-controller="Posts">
                             <button type="submit" class="btn btn-link text-black text-decoration-none fs-1">
                                 <div class="d-flex align-items-center">
