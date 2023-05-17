@@ -107,7 +107,7 @@ public class AccountController : Controller
         bool isAuthenticated = User.Identity.IsAuthenticated;
         if (isAuthenticated)
         {
-            return RedirectToAction("Login");
+            return RedirectToAction("Index");
         }
         return View(new LoginViewModel
         {
@@ -123,7 +123,7 @@ public class AccountController : Controller
         bool isAuthenticated = User.Identity.IsAuthenticated;
         if (isAuthenticated)
         {
-            return RedirectToAction("Login");
+            return RedirectToAction("Index");
         }
         else
         {

@@ -57,7 +57,7 @@ public class PostsController : Controller
             await _postService.CreatePost(userData, model, imageUrl);
         }
 
-        return RedirectToAction("About", "Profiles");
+        return RedirectToAction("AboutProfile", "Profiles");
     }
 
     [HttpPost]
@@ -110,7 +110,7 @@ public class PostsController : Controller
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
-        return RedirectToAction("About", "Profiles");
+        return RedirectToAction("AboutProfile", "Profiles");
     }
 
     [HttpGet]
@@ -119,7 +119,8 @@ public class PostsController : Controller
         var data = _postService.GetAll().FirstOrDefault(p => p.Id == id);
         var dataPost = new CreatePostViewModel
         {
-            Decription = data.Decription
+            Decription = data.Decription,
+            Post = data
         };
         return View(dataPost);
     }
@@ -128,6 +129,7 @@ public class PostsController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult EditPost(CreatePostViewModel data)
     {
-        return RedirectToAction("PostsCreate");
+        _postService.Edit(data, data.Post.Id);
+        return RedirectToAction("AboutProfile" , "Profiles");
     }
 }
