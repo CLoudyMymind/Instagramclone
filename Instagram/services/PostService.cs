@@ -91,7 +91,7 @@ public class PostService : IPostService
     {
        return _instagramContext.Posts.Include(p => p.Creater).ToList();
     }
-    public bool Delete(ClaimsPrincipal user, string id)
+    public async Task<bool> Delete(ClaimsPrincipal user, string id)
     {
         var userId = _userManager.GetUserId(user);
         var post = _instagramContext.Posts.FirstOrDefault(p => p.Id == id);
@@ -108,7 +108,7 @@ public class PostService : IPostService
         _instagramContext.Likes.RemoveRange(likes);
         _instagramContext.Comments.RemoveRange(comments);
         _instagramContext.Posts.Remove(post);
-        _instagramContext.SaveChanges();
+     await   _instagramContext.SaveChangesAsync();
         return true;
     }
 

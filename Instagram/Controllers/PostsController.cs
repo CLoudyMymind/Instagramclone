@@ -17,10 +17,11 @@ public class PostsController : Controller
     private readonly ICommentService _commentService;
     private readonly ILikeService _likeService;
     private readonly IFollowingService _followingService;
+    private readonly InstagramContext _instagramContext;
 
     public PostsController(IAccountService accountService, UserManager<User> userManager, IPostService postService,
         IFileService fileService, ICommentService commentService, ILikeService likeService,
-        IFollowingService followingService)
+        IFollowingService followingService, InstagramContext instagramContext)
     {
         _accountService = accountService;
         _userManager = userManager;
@@ -29,6 +30,7 @@ public class PostsController : Controller
         _commentService = commentService;
         _likeService = likeService;
         _followingService = followingService;
+        _instagramContext = instagramContext;
     }
 
     [HttpGet]
@@ -78,20 +80,21 @@ public class PostsController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Like(InfoByPostViewModel model)
+    public async Task<JsonResult> Like(InfoByPostViewModel model)
     {
         var user = await _userManager.GetUserAsync(User);
         if (user == null)
         {
-            TempData["Error"] = "Такого пользователя нету";
-            return RedirectToAction("register", "Account");
+            return Json(new { success = false, message = "Такого пользователя нету" });
         }
 
         var result = await _likeService.LikeAsync(model.Post.Id, user.Id);
-        if (result == false) return NotFound();
+        if (result == false) return Json(new { success = false, message = "Ошибка при обновлении лайка" });
+
         try
         {
-            return Redirect(Request.Headers["Referer"].ToString());
+            var updatedLikeCount = _instagramContext.Likes.Count(l => l.LikedPostId == model.Post.Id);
+            return Json(new { success = true, likeCount = updatedLikeCount });
         }
         catch (Exception e)
         {
@@ -100,18 +103,17 @@ public class PostsController : Controller
         }
     }
 
-    [HttpGet]
-    public IActionResult DeletePost(string id)
-    {
-        var data = _postService.Delete(HttpContext.User, id);
-        if (data == false)
-        {
-            TempData["Error"] = "Вы пытаетесь удалить чужой пост или которого нету";
-            return Redirect(Request.Headers["Referer"].ToString());
-        }
 
-        return RedirectToAction("AboutProfile", "Profiles");
+    [HttpPost]
+    public async Task<IActionResult> DeletePost(string id)
+    {
+        // Логика удаления поста
+        await _postService.Delete(HttpContext.User, id);
+
+        return Json(new { success = true });
     }
+
+
 
     [HttpGet]
     public IActionResult EditPost(string id)
@@ -122,7 +124,8 @@ public class PostsController : Controller
             Decription = data.Decription,
             Post = data
         };
-        return View(dataPost);
+        
+        return Json(dataPost);
     }
 
     [HttpPost]
