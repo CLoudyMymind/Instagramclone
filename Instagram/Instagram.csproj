@@ -38,6 +38,10 @@
       <_ContentIncludedByDefault Remove="wwwroot\images\e1d1d82a-7412-4871-98aa-43c6d813ca11.png" />
       <_ContentIncludedByDefault Remove="wwwroot\images\ed766d39-ddbc-4fd8-a21c-91276875e1a7.jpg" />
       <_ContentIncludedByDefault Remove="wwwroot\images\f4260142-9bb0-4ed0-baf3-98b10285865b.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\5ff1e5be-fa47-43f4-8719-6ad669d2d3b9.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\75a56644-e467-4cce-b04d-ddd7a203e361.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\b44eca0c-5ce9-4532-9e23-1e87305558d6.webp" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\df89fe65-b570-46c1-a34b-8ec86d8563cc.jpg" />
     </ItemGroup>
 
     <ItemGroup>
