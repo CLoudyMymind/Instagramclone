@@ -111,9 +111,7 @@ public async Task<JsonResult> Like(InfoByPostViewModel model)
     [HttpPost]
     public async Task<IActionResult> DeletePost(string id)
     {
-        // Логика удаления поста
         await _postService.Delete(HttpContext.User, id);
-
         return Json(new { success = true });
     }
 
