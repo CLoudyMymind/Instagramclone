@@ -1,4 +1,6 @@
-﻿@model Instagram.ViewModels.InfoByPostViewModel
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Instagram.ViewModels.InfoByPostViewModel
 
 @{
     ViewBag.Title = "подробние о посте";
@@ -8,8 +10,8 @@
 {
     <div class="alert alert-danger">@TempData["Error"]</div>
 }
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="~/css/post.css" asp-append-version="true"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+<link rel="stylesheet" href="~/css/post.css" asp-append-version="true"/>
 <div class="relative">
     <div class="feed">
 
@@ -38,7 +40,7 @@
                     </div>
 
                     <div class="description-and-comments" id="DesComment">
-                        <div class="post-footer-description">
+                        <div class="post-footer-description ">
                             <a href="#" class="post-footer-description-author user">@Model.Post.Creater.UserName</a>
                             <span>@Model.Post.Decription</span>
                         </div>
@@ -46,7 +48,7 @@
                             @foreach (var comment in Model.Post.Comments)
                             {
                                 <div class="comment-post">
-                                    <span  class="comment-author user">Пользователь оставил комментарий: @comment.User.UserName:</span>
+                                    <span class="comment-author user">Пользователь оставил комментарий: @comment.User.UserName:</span>
                                     <p class="comment-text">@comment.Description</p>
                                     <p>
                                         <div class="post-footer-relase">
@@ -70,6 +72,7 @@
         </div>
     </div>
 </div>
+
 @section Scripts
 {
     @{

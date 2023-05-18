@@ -16,16 +16,7 @@
     <div class="profile-info">
         <div class="profile-title mb-1rem">
             <h2>@Model.User.UserName</h2>
-            <a class="me-3" asp-action="Follow" asp-controller="Profiles" asp-route-id="@Model.User.Id">
-                @if (Model.Followings.FirstOrDefault(f => f.FollowerUserId == Model.User.Id) is not null)
-                {
-                    <span class="btn-outline-danger btn">Отписаться</span>
-                }
-                else
-                {
-                    <span class="btn-outline-success btn">Подписаться</span>
-                }
-            </a>
+            <a class="me-3 subscribe-link btn-outline-primary btn text-black text-decoration-none" userId ="@Model.User.Id" >Подписаться</a>
         </div>
         <ul class="profile-numbers mb-1rem">
             <li>
@@ -69,7 +60,7 @@
                         <img src="@post.PathFile">
                     </a>
                 </div>
-                <div class="icons">
+                <div class="icons ">
                     <i class="fa fa-heart">@post.Likes.Count ❤</i>
                     <i class="fa fa-comment">@post.Comments.Count 🗨️</i>
                 </div>
