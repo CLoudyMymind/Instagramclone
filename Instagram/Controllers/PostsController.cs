@@ -78,30 +78,34 @@ public class PostsController : Controller
         }
     }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<JsonResult> Like(InfoByPostViewModel model)
+   [HttpPost]
+   [ValidateAntiForgeryToken]
+public async Task<JsonResult> Like(InfoByPostViewModel model)
+{
+    var user = await _userManager.GetUserAsync(User);
+    if (user == null)
     {
-        var user = await _userManager.GetUserAsync(User);
-        if (user == null)
-        {
-            return Json(new { success = false, message = "Такого пользователя нету" });
-        }
-
-        var result = await _likeService.LikeAsync(model.Post.Id, user.Id);
-        if (result == false) return Json(new { success = false, message = "Ошибка при обновлении лайка" });
-
-        try
-        {
-            var updatedLikeCount = _instagramContext.Likes.Count(l => l.LikedPostId == model.Post.Id);
-            return Json(new { success = true, likeCount = updatedLikeCount });
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("Такого айди нету в базе");
-            throw;
-        }
+        return Json(new { success = false, message = "Такого пользователя нету" });
     }
+
+    var result = await _likeService.LikeAsync(model.Post.Id, user.Id);
+    if (result == false)
+    {
+        return Json(new { success = false, message = "Ошибка при обновлении лайка" });
+    }
+
+    try
+    {
+        var updatedLikeCount = _instagramContext.Likes.Count(l => l.LikedPostId == model.Post.Id);
+        return Json(new { success = true, likeCount = updatedLikeCount });
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine("Такого айди нету в базе");
+        throw;
+    }
+}
+
 
 
     [HttpPost]

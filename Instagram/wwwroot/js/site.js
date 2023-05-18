@@ -1,4 +1,7 @@
-﻿$(function() {
+﻿$.ajaxSetup({
+    headers: {"RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()}
+});
+$(function() {
     $(document).on('click', '.subscribe-link', function(event) {
         event.preventDefault();
         var userId = $(this).attr('userId');
@@ -48,6 +51,31 @@
             },
             error: function (error) {
                 console.log(error);
+            }
+        });
+    });
+});
+
+$(document).ready(function() {
+    $('#likeForm').submit(function(e) {
+        e.preventDefault();
+        var form = $(this);
+        var url = form.attr('action');
+
+        console.log(form.serialize())
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: form.serialize(),
+            success: function(response) {
+                if (response.success) {
+                    $('.like-count').text(response.likeCount); 
+                } else {
+                    console.log(response.message);
+                }
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
             }
         });
     });

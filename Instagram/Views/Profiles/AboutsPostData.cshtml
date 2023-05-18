@@ -22,15 +22,15 @@
                 </div>
                 <div class="post-footer">
                     <div class="d-flex align-items-center">
-                        <form asp-action="Like" method="post" enctype="multipart/form-data" class="mr-3" asp-antiforgery="true" asp-controller="Posts">
-                            <button type="submit" class="btn btn-link text-black text-decoration-none fs-1">
-                                <div class="d-flex align-items-center">
-                                    <span class="like-count">@Model.Post.Likes.Count</span>
-                                    <i class="fas fa-heart mr-2"></i>
-                                </div>
-                            </button>
-                            <input type="hidden" asp-for="Post.Id" value="@Model.Post.Id">
-                        </form>
+                       <form id="likeForm" asp-action="Like" method="post" enctype="multipart/form-data" class="mr-3" asp-antiforgery="true" asp-controller="Posts">
+                           <button type="submit" class="btn btn-link text-black text-decoration-none fs-1" id="likeButton">
+                               <div class="d-flex align-items-center">
+                                   <span class="like-count">@Model.Post.Likes.Count</span>
+                                   <i class="fas fa-heart mr-2"></i>
+                               </div>
+                           </button>
+                           <input type="hidden" asp-for="Post.Id" value="@Model.Post.Id">
+                       </form>
                         <a href="#" class="ms-4 text-decoration-none d-flex align-items-center">
                             <span class="me-3 text-decoration-none text-black fs-3">@Model.Post.Comments.Count</span>
                             <svg aria-label="Comment" class="_8-yf5" fill="#262626" height="24" viewBox="0 0 48 48" width="24">

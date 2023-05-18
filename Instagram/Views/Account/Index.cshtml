@@ -33,14 +33,14 @@
                         <div class="card-body">
                             <img src="@followPost.PathFile" alt="Post photo" class="w-100 mb-3">
                             <div class="d-flex align-items-center">
-                                <form asp-action="Like" method="post" enctype="multipart/form-data" asp-antiforgery="true" asp-controller="Posts" class="me-3">
-                                    <button type="submit" class="btn btn-link text-dark">
-                                        <div class="d-flex align-items-center text-danger">
+
+                                <form id="likeForm" asp-action="Like" method="post" enctype="multipart/form-data" class="mr-3" asp-antiforgery="true" asp-controller="Posts">
+                                    <button type="submit" class="btn btn-link text-black text-decoration-none fs-1" id="likeButton">
+                                        <div class="d-flex align-items-center">
                                             <span class="like-count">@followPost.Likes.Count</span>
-                                            <i class="fas fa-heart"></i>
+                                            <i class="fas fa-heart mr-2"></i>
                                         </div>
                                     </button>
-                                    <input type="hidden" asp-for="Post.Creater.Id" value="@followPost.Creater.Id">
                                     <input type="hidden" asp-for="Post.Id" value="@followPost.Id">
                                 </form>
                                 <a href="#" class="ms-4 text-decoration-none d-flex align-items-center">
