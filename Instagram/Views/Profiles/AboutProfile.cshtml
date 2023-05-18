@@ -50,11 +50,12 @@
         </div>
     </div>
 </div>
-<div class="post">
 <div class="gallery-pics inner-wrap">
     <div class="pic-wrap">
         @foreach (var post in Model.User.Posts)
         {
+            <div class="post post-@post.Id">
+
             <div class="pic mt-3">
                 <div class="opacity-overlay">
                     <a asp-action="AboutsPostData" asp-route-id="@post.Id">
@@ -70,14 +71,14 @@
                     {
                         @if (post.Creater.Id == Model.User.Id || post.Id != null || Model.User.Id != null)
                         {
-                            <a id="deleteButton" data-post-id="@post.Id" class="btn-outline-danger btn">Удалить пост</a>
+                            <button id="deleteButton" postId="@post.Id" class="btn-outline-danger btn">Удалить пост</button>
                             <a asp-controller="Posts" asp-action="EditPost" asp-route-id="@post.Id" class="btn-outline-success btn">Изменить пост</a>
                         }
                     }
                 </div>
             </div>
+            </div>
         }
     </div>
-</div>
 </div>
 

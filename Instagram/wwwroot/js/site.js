@@ -30,20 +30,25 @@
                 console.log(error);
             });
     });
-});
-var deleteButton = document.getElementById('deleteButton');
-deleteButton.addEventListener('click', function(e) {
-    e.preventDefault(); 
 
-    var postId = deleteButton.getAttribute('data-post-id'); 
-    $.ajax({
-        url: '/Posts/DeletePost',
-        type: 'POST',
-        data: { id: postId }, 
-        success: function(result) {
-            if (result.success) {
-                deleteButton.closest('.post').remove();
+    $(document).on('click', '#deleteButton', function (event) {
+        event.preventDefault();
+        const postId = $(this).attr('postId');
+        const countPosts = $('.profile-posts').text();
+        console.log(countPosts);
+        console.log(postId);
+
+        $.ajax({
+            type: 'POST',
+            url: '/Posts/DeletePost/',
+            data: {id: postId},
+            success: function () {
+                $(`.post-${postId}`).remove();
+                $('.profile-posts').text(`${parseInt(countPosts) - 1}`);
+            },
+            error: function (error) {
+                console.log(error);
             }
-        }
+        });
     });
 });
