@@ -43,4 +43,8 @@ public class LikeService : ILikeService
         return true;
     }
 
+    public int LikeCounts(string id)
+    {
+        return _instagramContext.Likes.Where(x => x.LikedPostId == id).ToList().Count;
+    }
 }
