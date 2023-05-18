@@ -64,18 +64,25 @@ public class ProfilesController : Controller
 
         return NotFound();
     }
-
-    [HttpGet]
+    
+    [HttpPost]
     public async Task<IActionResult> Follow(string id)
     {
-        var isFollowed = await _followingService.FollowOrUnfollowUserAsync(id, User);
-        if (isFollowed == false)
+        var str = _userManager.GetUserId(User);
+        if (str != id)
         {
-            TempData["Error"] = "Вы пытаетесь подписаться на себя";
-            return RedirectToAction("About", new { Id = id });
+            var isFollowed = await _followingService.FollowOrUnfollowUserAsync(id, User);
+            if (isFollowed == false)
+            {
+                TempData["Error"] = "Вы пытаетесь подписаться на себя";
+                return RedirectToAction("AboutProfile");
+            }
+
+            return Ok(); 
         }
 
-        return RedirectToAction("About", new { id });
+        return NotFound();
+
     }
 
     [HttpGet]
