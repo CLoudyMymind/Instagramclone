@@ -5,4 +5,7 @@ namespace Instagram.services.Abstractions;
 public interface ILikeService
 {
     Task<bool> LikeAsync(string postId, string userId);
+
+    int LikeCounts(string id);
+    
 }
